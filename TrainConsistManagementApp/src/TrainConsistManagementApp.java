@@ -1,4 +1,4 @@
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class TrainConsistManagementApp {
@@ -7,18 +7,20 @@ public class TrainConsistManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create HashSet for bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // Create LinkedHashSet for train formation
+        Set<String> trainFormation = new LinkedHashSet<>();
 
-        // Add bogie IDs (including duplicates intentionally)
-        bogieIds.add("BG101");
-        bogieIds.add("BG102");
-        bogieIds.add("BG103");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        // Add bogies in order
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-        // Display unique bogie IDs
-        System.out.println("\nUnique Bogie IDs:");
-        System.out.println(bogieIds);
+        // محاولة إضافة عنصر مكرر (duplicate)
+        trainFormation.add("Sleeper"); // duplicate, will be ignored
+
+        // Display final formation
+        System.out.println("\nTrain Formation (Insertion Order Preserved):");
+        System.out.println(trainFormation);
     }
 }
