@@ -4,22 +4,40 @@ public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        // Input bogie names
-        String[] bogies = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General",
-                "Luxury"
-        };
+        // Sample bogie IDs (unsorted)
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        System.out.println("Before Sorting:");
-        System.out.println(Arrays.toString(bogies));
+        Scanner scanner = new Scanner(System.in);
 
-        // Built-in sorting
-        Arrays.sort(bogies);
+        System.out.println("Available Bogie IDs:");
+        System.out.println(Arrays.toString(bogieIds));
 
-        System.out.println("\nAfter Sorting:");
-        System.out.println(Arrays.toString(bogies));
+        // Input search key
+        System.out.print("\nEnter Bogie ID to search: ");
+        String searchKey = scanner.nextLine();
+
+        // Linear Search
+        boolean found = linearSearch(bogieIds, searchKey);
+
+        // Output
+        if (found) {
+            System.out.println("Bogie ID found ✅");
+        } else {
+            System.out.println("Bogie ID not found ❌");
+        }
+
+        scanner.close();
+    }
+
+    // Linear Search Method
+    public static boolean linearSearch(String[] arr, String key) {
+
+        for (String id : arr) {
+            if (id.equals(key)) {  // safe comparison
+                return true;       // early termination
+            }
+        }
+
+        return false;
     }
 }
