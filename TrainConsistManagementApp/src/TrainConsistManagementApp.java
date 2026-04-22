@@ -1,74 +1,53 @@
-// Custom Runtime Exception
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
+import java.util.*;
 
-// Goods Bogie Class
-class GoodsBogie {
-    private String type;
-    private String cargo;
-
-    public GoodsBogie(String type) {
-        this.type = type;
-    }
-
-    public void assignCargo(String cargo) {
-
-        try {
-            // VALIDATION (Runtime check)
-            if (type.equalsIgnoreCase("Rectangular") &&
-                    cargo.equalsIgnoreCase("Petroleum")) {
-
-                throw new CargoSafetyException(
-                        "Unsafe Assignment: Rectangular bogie cannot carry Petroleum"
-                );
-            }
-
-            // SAFE ASSIGNMENT
-            this.cargo = cargo;
-            System.out.println(type + " bogie assigned with " + cargo);
-
-        } catch (CargoSafetyException e) {
-            // HANDLE ERROR (Graceful failure)
-            System.out.println("Error: " + e.getMessage());
-
-        } finally {
-            // ALWAYS EXECUTES
-            System.out.println("Assignment attempt completed for " + type);
-        }
-    }
-
-    public void display() {
-        System.out.println(type + " -> " + (cargo != null ? cargo : "No Cargo"));
-    }
-}
-
-// Main Class
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        // Safe case
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        b1.assignCargo("Petroleum");
+        // Sample passenger bogie capacities
+        int[] capacities = {72, 56, 24, 70, 60};
 
+        System.out.println("Before Sorting:");
+        printArray(capacities);
+
+        // Bubble Sort
+        bubbleSort(capacities);
+
+        System.out.println("\nAfter Sorting:");
+        printArray(capacities);
+    }
+
+    // Bubble Sort Logic
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+
+        for (int i = 0; i < n - 1; i++) {
+
+            // Optimization: track if swap happened
+            boolean swapped = false;
+
+            for (int j = 0; j < n - i - 1; j++) {
+
+                if (arr[j] > arr[j + 1]) {
+                    // Swap
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+
+                    swapped = true;
+                }
+            }
+
+            // If no swaps → already sorted
+            if (!swapped) break;
+        }
+    }
+
+    // Utility Method
+    public static void printArray(int[] arr) {
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
         System.out.println();
-
-        // Unsafe case
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
-        b2.assignCargo("Petroleum");
-
-        System.out.println();
-
-        // Another safe case (program continues)
-        GoodsBogie b3 = new GoodsBogie("Rectangular");
-        b3.assignCargo("Coal");
-
-        System.out.println("\nFinal State:");
-        b1.display();
-        b2.display();
-        b3.display();
     }
 }
